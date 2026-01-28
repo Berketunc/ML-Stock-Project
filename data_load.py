@@ -12,8 +12,9 @@ def fetch_and_save_data(symbol="AAPL"):
     #GET KEYS
     api_key = os.getenv("ALPACA_API_KEY")
     secret_key = os.getenv("ALPACA_SECRET_KEY")
-    
-    data_dir = os.path.join(os.getcwd(), "data")
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))    
+    data_dir = os.path.join(base_dir, "data")
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
 
