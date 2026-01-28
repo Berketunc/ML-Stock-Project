@@ -11,5 +11,11 @@ lib/
 __pycache__/
 *.pyc
 
+#CSV Files
+*.csv
+
 #OS Files
 .DS_Store
+
+#AI Model
+*.pkl
