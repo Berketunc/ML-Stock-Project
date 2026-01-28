@@ -1,0 +1,15 @@
+#API
+.env
+
+#Virtual Environment
+venv/
+env/
+bin/
+lib/
+
+#Python Cache
+__pycache__/
+*.pyc
+
+#OS Files
+.DS_Store
