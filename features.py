@@ -19,6 +19,7 @@ def generate_features(symbol="APPL"):
     df['SMA_50'] = ta.sma(df['close'], length=50)
     df['Vol_Change'] = df['volume'].pct_change()
     df['Daily_Range'] = (df['high'] - df['low']) / df['close']
+    df['Price_Pct_Change'] = df['close'].pct_change()
 
     # Bollinger Bands
     bbands = ta.bbands(df['close'], length=20, std=2)
