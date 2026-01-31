@@ -13,7 +13,7 @@ def train_model(symbol="AAPL"):
 
     #Select features (Input) and target (Prediction)
     core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Daily_Range']
-    
+
     # Find the specific BB names created by pandas_ta
     bbl_col = [c for c in df.columns if c.startswith('BBL')][0]
     bbu_col = [c for c in df.columns if c.startswith('BBU')][0]
@@ -28,6 +28,11 @@ def train_model(symbol="AAPL"):
 
     model = RandomForestClassifier(n_estimators=200, min_samples_split=10, random_state=1)
     model.fit(X_train, y_train)
+
+    #Feature Importance
+    importance = model.feature_importances_
+    for name, importance in zip(features, importance):
+        print(f"Feature: {name}, Importance: {importance:.4f}")
 
     #Calculate 
     predictions = model.predict(X_test)
