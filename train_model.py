@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import joblib
 import os
@@ -56,5 +57,6 @@ def train_model(symbol="AAPL"):
     print(f"Brain saved to: {model_path}")
     
 if __name__ == "__main__":
-    train_model("AAPL")
+    target_ticker = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
+    train_model(target_ticker)
     

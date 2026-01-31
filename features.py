@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import pandas_ta as ta
 import os
@@ -26,6 +27,12 @@ def generate_features(symbol="APPL"):
     #Target Variable
     df['Target'] = (df['close'].shift(-1) > df['close']).astype(int)
 
+    #To see momentum of the stock, add lagged features
+    for lag in [1, 2, 3]:
+        df[f'Close_Lag_{lag}'] = df['close'].shift(lag)
+        df[f'RSI_Lag_{lag}'] = df['RSI'].shift(lag)
+    
+
     df.dropna(inplace=True)
 
     output_path = os.path.join(base_dir, "data", f"{symbol.lower()}_processed.csv")
@@ -33,4 +40,5 @@ def generate_features(symbol="APPL"):
     print(f"Success! Features generated: {output_path}")
 
 if __name__ == "__main__":
-    generate_features("AAPL")
+    target_ticker = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
+    generate_features(target_ticker)

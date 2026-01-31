@@ -1,3 +1,4 @@
+import sys
 import os
 import pandas as pd
 from dotenv import load_dotenv
@@ -39,4 +40,5 @@ def fetch_and_save_data(symbol="AAPL"):
     print(f"Success! Data for {symbol} saved to {file_path}")
 
 if __name__ == "__main__":
-    fetch_and_save_data("AAPL")
+    target_ticker = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
+    fetch_and_save_data(target_ticker)
