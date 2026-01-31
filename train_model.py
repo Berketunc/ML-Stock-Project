@@ -12,15 +12,34 @@ def train_model(symbol="AAPL"):
     df = pd.read_csv(data_path)
 
     #Select features (Input) and target (Prediction)
-    features = ['RSI', 'SMA_20', 'SMA_50']
+    core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Daily_Range']
+
+    # Find the specific BB names created by pandas_ta
+    bbl_col = [c for c in df.columns if c.startswith('BBL')][0]
+    bbu_col = [c for c in df.columns if c.startswith('BBU')][0]
+    
+    features = core_features + [bbl_col, bbu_col]
+
     X = df[features]
     y = df['Target']
 
     #80-20 Train-Test Split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    model = RandomForestClassifier(n_estimators=100, min_samples_split=10, random_state=1)
+    model = RandomForestClassifier(
+        n_estimators = 500,
+        max_depth = 10,
+        min_samples_leaf = 5,
+        random_state = 1,
+        n_jobs = -1
+        )
+    
     model.fit(X_train, y_train)
+
+    #Feature Importance
+    importance = model.feature_importances_
+    for name, importance in zip(features, importance):
+        print(f"Feature: {name}, Importance: {importance:.4f}")
 
     #Calculate 
     predictions = model.predict(X_test)

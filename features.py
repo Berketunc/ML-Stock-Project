@@ -16,6 +16,12 @@ def generate_features(symbol="APPL"):
     df['RSI'] = ta.rsi(df['close'], length=14)
     df['SMA_20'] = ta.sma(df['close'], length=20)
     df['SMA_50'] = ta.sma(df['close'], length=50)
+    df['Vol_Change'] = df['volume'].pct_change()
+    df['Daily_Range'] = (df['high'] - df['low']) / df['close']
+
+    # Bollinger Bands
+    bbands = ta.bbands(df['close'], length=20, std=2)
+    df = pd.concat([df, bbands], axis=1)
 
     #Target Variable
     df['Target'] = (df['close'].shift(-1) > df['close']).astype(int)
