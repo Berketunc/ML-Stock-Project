@@ -12,14 +12,19 @@ def train_model(symbol="AAPL"):
     df = pd.read_csv(data_path)
 
     #Select features (Input) and target (Prediction)
-    features = ['RSI', 'SMA_20', 'SMA_50']
+    features = [
+        'RSI', 'SMA_20', 'SMA_50',
+        'Vol_Change', 'Daily_Range',
+        'BBL_20_2.0', 'BBU_20_2.0'
+        ]
+    
     X = df[features]
     y = df['Target']
 
     #80-20 Train-Test Split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    model = RandomForestClassifier(n_estimators=100, min_samples_split=10, random_state=1)
+    model = RandomForestClassifier(n_estimators=200, min_samples_split=10, random_state=1)
     model.fit(X_train, y_train)
 
     #Calculate 

@@ -17,6 +17,17 @@ def generate_features(symbol="APPL"):
     df['SMA_20'] = ta.sma(df['close'], length=20)
     df['SMA_50'] = ta.sma(df['close'], length=50)
 
+    #Volume Change
+    df['Vol_Change'] = df['volume'].pct_change()
+
+    #Daily Volatility
+    df['Daily_Range'] = (df['high'] - df['low']) / df['close']
+
+    #Bollinger Bands (A measure of volatility)
+    bbands = ta.bbands(df['close'], length=20, std=2)
+    df = pd.concat([df, bbands], axis=1) #BBL, BBM, BBU 
+
+
     #Target Variable
     df['Target'] = (df['close'].shift(-1) > df['close']).astype(int)
 

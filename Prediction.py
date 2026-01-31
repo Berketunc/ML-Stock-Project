@@ -22,9 +22,9 @@ def make_prediction(symbol="AAPL"):
 
     print(f"\n--- Prediction for {symbol} ---")
     if prediction[0] == 1:
-        print(f"Direction: UP (Probability: {probability[0][1]:.2%})")
+        print(f"Direction: UP (Confidence: {probability[0][1]:.2%})")
     else:
-        print(f"Direction: DOWN (Probability: {probability[0][0]:.2%})")
+        print(f"Direction: DOWN (Confidence: {probability[0][0]:.2%})")
 
 if __name__ == "__main__":
     make_prediction("AAPL")
