@@ -1,3 +1,4 @@
+import sys
 import joblib
 import pandas as pd
 import os
@@ -33,4 +34,5 @@ def make_prediction(symbol="AAPL"):
         print(f"Direction: DOWN (Confidence: {probability[0][0]:.2%})")
 
 if __name__ == "__main__":
-    make_prediction("AAPL")
+    target_ticker = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
+    make_prediction(target_ticker)
