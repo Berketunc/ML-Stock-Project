@@ -13,9 +13,15 @@ def make_prediction(symbol="AAPL"):
     
     model = joblib.load(model_path)
     df = pd.read_csv(data_path)
-    
+
+    #Feature Selection
+    core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Daily_Range']
+    bbl_col = [c for c in df.columns if c.startswith('BBL')][0]
+    bbu_col = [c for c in df.columns if c.startswith('BBU')][0]
+    features = core_features + [bbl_col, bbu_col]
+
     # Get the latest row for prediction
-    latest_features = df[['RSI', 'SMA_20', 'SMA_50']].tail(1)
+    latest_features = df[features].tail(1)
     
     prediction = model.predict(latest_features)
     probability = model.predict_proba(latest_features)
