@@ -15,17 +15,13 @@ Features
 
 
 Project Structure
-.
-├── data/               # Raw and processed CSV files (Gitignored)
-├── model/              # Trained .pkl model files (Gitignored)
-├── utils/
-│   └── run_pipeline.sh # The master automation script
-├── data_load.py        # Alpaca API data extraction
-├── features.py         # Feature engineering & SPY merging
-├── train_model.py      # XGBoost training & hyperparameter logic
-├── Prediction.py       # Final inference script
-└── .env                # API Keys (Gitignored)
-
+* `data/` - Storage for raw and processed CSV files.
+* `model/` - Serialized XGBoost models (.pkl).
+* `utils/run_pipeline.sh` - The master bash script to execute the pipeline.
+* `data_load.py` - Ingests data from Alpaca API.
+* `features.py` - Handles technical analysis and data merging.
+* `train_model.py` - Executes XGBoost training and feature importance analysis.
+* `Prediction.py` - Generates the final prediction for the latest market data.
 
 Setup & Installation
 1. Clone the repo
