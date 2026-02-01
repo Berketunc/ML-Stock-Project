@@ -16,7 +16,7 @@ def make_prediction(symbol="AAPL"):
     df = pd.read_csv(data_path)
 
     #Feature Selection
-    core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Daily_Range', 'Price_Pct_Change']
+    core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Golden_Cross', 'Gap']
     bbl_col = [c for c in df.columns if c.startswith('BBL')][0]
     bbu_col = [c for c in df.columns if c.startswith('BBU')][0]
     features = core_features + [bbl_col, bbu_col]
