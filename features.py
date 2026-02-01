@@ -18,14 +18,19 @@ def generate_features(symbol="APPL"):
     df['SMA_20'] = ta.sma(df['close'], length=20)
     df['SMA_50'] = ta.sma(df['close'], length=50)
     df['Vol_Change'] = df['volume'].pct_change()
-    df['Daily_Range'] = (df['high'] - df['low']) / df['close']
 
+    # Golden Cross: 1 if 20-day is above 50-day SMA
+    df['Golden_Cross'] = (df['SMA_20'] > df['SMA_50']).astype(int)
+
+    # Overnight Gap: Percent difference between today's open and yesterday's close
+    df['Gap'] = (df['open'] - df['close'].shift(1)) / df['close'].shift(1)
+    
     # Bollinger Bands
     bbands = ta.bbands(df['close'], length=20, std=2)
     df = pd.concat([df, bbands], axis=1)
 
-    #Target Variable
-    df['Target'] = (df['close'].shift(-1) > df['close']).astype(int)
+    #Target Variable by 0.5%
+    df['Target'] = (df['close'].shift(-1) > (df['close'] * 1.005)).astype(int)
 
     #To see momentum of the stock, add lagged features
     for lag in [1, 2, 3]:
