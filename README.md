@@ -79,5 +79,3 @@ Hyperparameter Tuning: Implement GridSearchCV to optimize XGBoost max_depth and 
 Macro Integration: Add interest rate (FED) or sentiment analysis from financial news.
 
 Backtesting Suite: Develop a script to simulate historical trades based on model signals.
-
-Investigate the fact that stocks like NVDA are not in a vacuum (such as S&P 500 and etc.)
