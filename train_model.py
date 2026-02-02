@@ -14,7 +14,10 @@ def train_model(symbol="AAPL"):
     df = pd.read_csv(data_path)
 
     #Select features (Input) and target (Prediction)
-    core_features = ['RSI', 'SMA_20', 'SMA_50', 'Vol_Change', 'Golden_Cross', 'Gap']
+    core_features = ['rsi', 'sma_20', 'sma_50', 'vol_change', 'golden_cross', 'gap', 'spy_returns', 'relative_strength',
+                     'rsi_lag_1', 'rsi_lag_2', 'rsi_lag_3',
+                     'rel_strength_lag_1', 'rel_strength_lag_2', 'rel_strength_lag_3'
+                     ]
 
     # Find the specific BB names created by pandas_ta
     bbl_col = [c for c in df.columns if c.startswith('BBL')][0]

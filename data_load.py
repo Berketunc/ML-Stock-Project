@@ -29,6 +29,15 @@ def fetch_and_save_data(symbol="AAPL"):
         feed="iex"
     )
 
+    for ticker in [symbol, "SPY"]:
+        print(f"Fetching data for {ticker}...")
+        request_params = StockBarsRequest(
+            symbol_or_symbols=[ticker],
+            timeframe=TimeFrame.Day,
+            start=datetime.now() - timedelta(days=730),
+            feed='iex'
+        )
+
     print(f"Fetching data for {symbol}...")
     bars = client.get_stock_bars(request_params)
     
@@ -42,3 +51,6 @@ def fetch_and_save_data(symbol="AAPL"):
 if __name__ == "__main__":
     target_ticker = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
     fetch_and_save_data(target_ticker)
+
+    if not os.path.exists("data/spy_raw.csv") or target_ticker == "SPY":
+        fetch_and_save_data("SPY")
