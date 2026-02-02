@@ -20,15 +20,19 @@ def generate_features(symbol="APPL"):
     spy_df = pd.read_csv(spy_path)
 
     #f.columns = [c.lower() for c in df.columns]
+    df.columns = [c.lower() for c in df.columns]
     spy_df.columns = [c.lower() for c in spy_df.columns]
 
-    #Create the 'returns' column 
+    df['timestamp'] = pd.to_datetime(df['timestamp']).dt.date
+    spy_df['timestamp'] = pd.to_datetime(spy_df['timestamp']).dt.date
+
+    #Calculate Base Returns
     df['returns'] = df['close'].pct_change()
     spy_df['spy_returns'] = spy_df['close'].pct_change()
     
-    #Merge SPY returns into main df
-    # We only need timestamp and spy_returns from the SPY file
+    #Merge Market Context 
     df = pd.merge(df, spy_df[['timestamp', 'spy_returns']], on='timestamp', how='left')
+    df['spy_returns'] = df['spy_returns'].ffill().bfill() # Clean missing data
 
     # Relative Strength
     df['relative_strength'] = (df['returns'] - df['spy_returns']).fillna(0)
