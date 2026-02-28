@@ -34,7 +34,7 @@ def train_model(symbol="AAPL"):
     model = XGBClassifier(
         n_estimators = 500,
         learning_rate = 0.05,
-        max_depth = 6,
+        max_depth = 50,
         eval_metric = "logloss",
         random_state = 1
         )
